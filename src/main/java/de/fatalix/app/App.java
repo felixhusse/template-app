@@ -50,10 +50,8 @@ public class App extends ViewMenuUI{
         logout.setIcon(FontAwesome.SIGN_OUT);
         logout.addStyleName("user-menu");
         if (!isLoggedIn()) {
-            System.out.println("not logged in");
             getMenu().setVisible(false);
             getNavigator().navigateTo(LoginView.id);
-            //getMenu().navigateTo(LoginView.id);
         } else {
             getMenu().setVisible(isLoggedIn());
             getMenu().addMenuItem(logout);
