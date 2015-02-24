@@ -8,9 +8,9 @@
 // Defines the border used by all components.
 //$v-border: 1px solid (v-shade 0.7);
 //$v-border-radius: 4px;
-
+$login-info-opacity: 0.7 !default;
 // Affects the color of some component elements, e.g Button, Panel title, etc
-//$v-background-color: hsl(210, 0%, 98%);
+$v-background-color: #C29147;
 // Affects the color of content areas, e.g  Panel and Window content, TextField input etc
 $v-app-background-color: #C29147;
 
@@ -41,7 +41,7 @@ $v-font-weight: 400 !default;
 $v-unit-size: 32px !default;
 
 $login-info-width: 300px !default;
-$login-info-opacity: 0.7 !default;
+
 $login-background-color: $editor-background-color !default;
 // Get more background images from unsplash.com (remember to optimize the filesize)
 $login-background-image: "img/archetype-login-bg.jpg" !default;
@@ -64,7 +64,6 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
 
 @mixin mytheme {
   @include valo;
-  
   .v-Notification {
       background-color: rgba(81, 35, 0, $login-info-opacity);
       .failure {
