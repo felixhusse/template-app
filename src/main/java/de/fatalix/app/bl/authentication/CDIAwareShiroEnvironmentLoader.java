@@ -12,14 +12,14 @@ import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.web.env.DefaultWebEnvironment;
-import org.apache.shiro.web.env.EnvironmentLoader;
+import org.apache.shiro.web.env.EnvironmentLoaderListener;
 import org.apache.shiro.web.env.WebEnvironment;
 
 /**
  *
  * @author felix.husse
  */
-public class CDIAwareShiroEnvironmentLoader extends EnvironmentLoader{
+public class CDIAwareShiroEnvironmentLoader extends EnvironmentLoaderListener{
     private final static String HASHING_ALGORITHM = "SHA-512";
 
     @Inject
