@@ -11,7 +11,7 @@
     </session-config>
     
     <listener>
-		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+		<listener-class>de.fatalix.app.bl.authentication.CDIAwareShiroEnvironmentLoader</listener-class>
 	</listener>
     
     <filter>

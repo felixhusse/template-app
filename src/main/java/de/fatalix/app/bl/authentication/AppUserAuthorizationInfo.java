@@ -5,6 +5,7 @@
  */
 package de.fatalix.app.bl.authentication;
 
+import de.fatalix.app.bl.model.AppUser;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -17,7 +18,11 @@ import org.apache.shiro.authz.Permission;
  */
 public class AppUserAuthorizationInfo implements AuthorizationInfo{
     
-    
+    private final AppUser user;
+
+    public AppUserAuthorizationInfo(AppUser user) {
+        this.user = user;
+    }
     
     @Override
     public Collection<String> getRoles() {

@@ -13,6 +13,7 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
@@ -26,8 +27,15 @@ public class JPARealm extends AuthorizingRealm {
     private AppUserService service;
 
     @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection pc) {
-        return null;
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        Object availablePrincipal = getAvailablePrincipal(principals);
+
+        if (availablePrincipal != null) {
+            String principalName = availablePrincipal.toString();
+            return service.getAppUser(principalName).getAsAuthorizationInfo();
+        }
+
+        return new SimpleAuthorizationInfo();
     }
 
     @Override

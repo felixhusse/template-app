@@ -6,7 +6,9 @@
 package de.fatalix.app.bl.model;
 
 import de.fatalix.app.bl.authentication.AppUserAuthenticationInfo;
+import de.fatalix.app.bl.authentication.AppUserAuthorizationInfo;
 import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authz.AuthorizationInfo;
 
 /**
  *
@@ -35,6 +37,10 @@ public class AppUser {
     
     public AuthenticationInfo getAsAuthenticationInfo() {
         return new AppUserAuthenticationInfo(this);
+    }
+    
+    public AuthorizationInfo getAsAuthorizationInfo() {
+        return new AppUserAuthorizationInfo(this);
     }
     
 }
