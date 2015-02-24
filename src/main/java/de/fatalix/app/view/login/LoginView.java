@@ -10,6 +10,7 @@ import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.Page;
+import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -92,7 +93,7 @@ public class LoginView extends AbstractView implements View{
                 try {
                     presenter.doLogin(username.getValue(), password.getValue());
                 } catch (AuthenticationException ex) {
-                    LoginView.this.showNotification(new Notification(ex.getMessage()));
+                    LoginView.this.showNotification(new Notification("Wrong login",Notification.Type.ERROR_MESSAGE),ValoTheme.NOTIFICATION_FAILURE);
                 } finally {
                     login.setEnabled(true);
                 }
@@ -105,7 +106,7 @@ public class LoginView extends AbstractView implements View{
         forgotPassword.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                showNotification(new Notification("Hint: Try anything"));
+                showNotification(new Notification("Hint: Try anything",Notification.Type.HUMANIZED_MESSAGE),ValoTheme.NOTIFICATION_SUCCESS);
             }
         });
         forgotPassword.addStyleName(ValoTheme.BUTTON_LINK);
@@ -123,9 +124,11 @@ public class LoginView extends AbstractView implements View{
         return loginInformation;
     }
     
-    private void showNotification(Notification notification) {
+    private void showNotification(Notification notification, String style) {
         // keep the notification visible a little while after moving the
         // mouse, or until clicked
+        notification.setPosition(Position.TOP_CENTER);
+        notification.setStyleName(ValoTheme.NOTIFICATION_BAR);
         notification.setDelayMsec(2000);
         notification.show(Page.getCurrent());
     }

@@ -64,7 +64,16 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
 
 @mixin mytheme {
   @include valo;
-
+  
+  .v-Notification {
+      background-color: rgba(81, 35, 0, $login-info-opacity);
+      .failure {
+          background-color: rgba(81, 35, 0, $login-info-opacity);
+      }
+      h1 {
+         color: rgb(244, 238, 229); 
+      }
+  }
 
   // login screen - for small screens, see below
   .login-screen {
