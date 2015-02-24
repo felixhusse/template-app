@@ -21,7 +21,7 @@ import org.vaadin.cdiviewmenu.ViewMenuItem;
 @CDIView(HomeView.id)
 @ViewMenuItem(title = "Home",icon = FontAwesome.HOME)
 public class HomeView extends AbstractView implements View{
-    public static final String id = "";
+    public static final String id = "home";
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {

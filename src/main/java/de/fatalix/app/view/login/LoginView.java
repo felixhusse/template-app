@@ -33,7 +33,7 @@ import org.vaadin.cdiviewmenu.ViewMenuItem;
 @ViewMenuItem(enabled = false)
 public class LoginView extends AbstractView implements View{
     
-    public static final String id = "login";
+    public static final String id = "";
     
     @Inject
     private LoginViewPresenter presenter;
