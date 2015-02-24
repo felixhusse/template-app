@@ -22,14 +22,14 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.vaadin.cdiviewmenu.ViewMenuUI;
 
-/**
+ /*
  *
  * @author Fatalix
  */
 @CDIUI("")
 @Theme("mytheme")
 public class App extends ViewMenuUI{
-    
+
     private Button logout;
     
     private final Button.ClickListener logoutClickListener = new Button.ClickListener() {
@@ -42,7 +42,7 @@ public class App extends ViewMenuUI{
             Page.getCurrent().setLocation("");
         }
     };
-    
+
     @Override
     protected void init(VaadinRequest request) {
         super.init(request);
@@ -52,29 +52,31 @@ public class App extends ViewMenuUI{
             ViewMenuUI.getMenu().setVisible(false);
             ViewMenuUI.getMenu().navigateTo(LoginView.id);
         } else {
-            if (getNavigator().getState().isEmpty()) {
+            if(getNavigator().getState().isEmpty()) {
                 getMenu().setVisible(isLoggedIn());
                 getMenu().addMenuItem(logout);
                 ViewMenuUI.getMenu().navigateTo(HomeView.id);
             }
         }
-        
+
     }
-    
+
     private boolean isLoggedIn() {
         Subject subject = SecurityUtils.getSubject();
         if (subject == null) {
             System.err.println("Could not find subject");
             return false;
         }
-        
+
         return subject.isAuthenticated();
     }
-    
+
     public void userLoggedIn(@Observes(notifyObserver = Reception.IF_EXISTS) UserLoggedInEvent event) {
         Notification.show("Welcome back " + event.getUsername());
         getMenu().navigateTo(HomeView.id);
         getMenu().addMenuItem(logout);
         getMenu().setVisible(isLoggedIn());
     }
+
+    
 }
