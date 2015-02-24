@@ -48,14 +48,17 @@ public class App extends ViewMenuUI{
         super.init(request);
         logout = new Button("Logout", logoutClickListener);
         logout.setIcon(FontAwesome.SIGN_OUT);
+        logout.addStyleName("user-menu");
         if (!isLoggedIn()) {
-            ViewMenuUI.getMenu().setVisible(false);
-            ViewMenuUI.getMenu().navigateTo(LoginView.id);
+            System.out.println("not logged in");
+            getMenu().setVisible(false);
+            getNavigator().navigateTo(LoginView.id);
+            //getMenu().navigateTo(LoginView.id);
         } else {
+            getMenu().setVisible(isLoggedIn());
+            getMenu().addMenuItem(logout);
             if(getNavigator().getState().isEmpty()) {
-                getMenu().setVisible(isLoggedIn());
-                getMenu().addMenuItem(logout);
-                ViewMenuUI.getMenu().navigateTo(HomeView.id);
+                getNavigator().navigateTo(HomeView.id);
             }
         }
 
