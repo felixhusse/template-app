@@ -10,11 +10,13 @@ import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.Page;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
@@ -43,16 +45,27 @@ public class LoginView extends AbstractView implements View{
     private Button login;
     private Button forgotPassword;
     
-    @Override
-    public void enter(ViewChangeListener.ViewChangeEvent event) {
-        addStyleName("login-screen");
+    public LoginView() {
+        CssLayout rootLayout = new CssLayout();
+        rootLayout.addStyleName("login-screen");
+
         Component loginForm = buildLoginForm();
         VerticalLayout centeringLayout = new VerticalLayout();
         centeringLayout.setStyleName("centering-layout");
         centeringLayout.addComponent(loginForm);
         centeringLayout.setComponentAlignment(loginForm,Alignment.MIDDLE_CENTER);
         
-        setCompositionRoot(centeringLayout);
+        CssLayout loginInformation = buildLoginInformation();
+        
+        rootLayout.addComponent(centeringLayout);
+        rootLayout.addComponent(loginInformation);
+        
+        setCompositionRoot(rootLayout);
+    }
+    
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent event) {
+        
     }
     
     private Component buildLoginForm() {
@@ -97,6 +110,17 @@ public class LoginView extends AbstractView implements View{
         });
         forgotPassword.addStyleName(ValoTheme.BUTTON_LINK);
         return loginForm;
+    }
+    
+    private CssLayout buildLoginInformation() {
+        CssLayout loginInformation = new CssLayout();
+        loginInformation.setStyleName("login-information");
+        Label loginInfoText = new Label(
+                "<h1>Welcome to Bookshelf</h1>"
+                        + "Please provide your login to access your library. If you have problems logging in, please contact your administrator.",
+                ContentMode.HTML);
+        loginInformation.addComponent(loginInfoText);
+        return loginInformation;
     }
     
     private void showNotification(Notification notification) {

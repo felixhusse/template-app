@@ -27,7 +27,7 @@ import org.vaadin.cdiviewmenu.ViewMenuUI;
  * @author Fatalix
  */
 @CDIUI("")
-@Theme("valo")
+@Theme("mytheme")
 public class App extends ViewMenuUI{
     
     private Button logout;
@@ -49,7 +49,6 @@ public class App extends ViewMenuUI{
         logout = new Button("Logout", logoutClickListener);
         logout.setIcon(FontAwesome.SIGN_OUT);
         if (!isLoggedIn()) {
-            System.out.println("NOT LOGGED IN");
             ViewMenuUI.getMenu().setVisible(false);
             ViewMenuUI.getMenu().navigateTo(LoginView.id);
         } else {
