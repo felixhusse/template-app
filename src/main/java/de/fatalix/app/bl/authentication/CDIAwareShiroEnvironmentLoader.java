@@ -8,6 +8,7 @@ package de.fatalix.app.bl.authentication;
 import java.util.Collection;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.realm.Realm;
@@ -27,12 +28,15 @@ public class CDIAwareShiroEnvironmentLoader extends EnvironmentLoaderListener{
 
     @Override
     protected WebEnvironment createEnvironment(ServletContext sc) {
+        System.out.println("Loading JPA REALM");
         WebEnvironment webEnvironment = super.createEnvironment(sc);
 
         RealmSecurityManager rsm = (RealmSecurityManager) webEnvironment.getSecurityManager();
-        SimpleCredentialsMatcher credentialsMatcher = new SimpleCredentialsMatcher();
         
-        jpaRealm.setCredentialsMatcher(credentialsMatcher);
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher(HASHING_ALGORITHM);
+        hashedCredentialsMatcher.setStoredCredentialsHexEncoded(true);
+        jpaRealm.setCredentialsMatcher(hashedCredentialsMatcher);
+        
         Collection<Realm> realms = rsm.getRealms();
         realms.add(jpaRealm);
         rsm.setRealms(realms);

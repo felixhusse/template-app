@@ -16,7 +16,7 @@
     
     <filter>
 		<filter-name>ShiroFilter</filter-name>
-		<filter-class>org.apache.shiro.web.servlet.IniShiroFilter</filter-class>
+		<filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
 	</filter>
     
     <!-- Make sure any request you want accessible to Shiro is filtered. /* 

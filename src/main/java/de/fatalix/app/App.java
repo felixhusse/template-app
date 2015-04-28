@@ -7,6 +7,7 @@ package de.fatalix.app;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.cdi.CDIUI;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
@@ -21,6 +22,7 @@ import javax.enterprise.event.Reception;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.vaadin.cdiviewmenu.ViewMenuUI;
+import static org.vaadin.cdiviewmenu.ViewMenuUI.getMenu;
 
  /*
  *
@@ -49,6 +51,33 @@ public class App extends ViewMenuUI{
         logout = new Button("Logout", logoutClickListener);
         logout.setIcon(FontAwesome.SIGN_OUT);
         logout.addStyleName("user-menu");
+        getNavigator().addViewChangeListener(new ViewChangeListener() {
+
+            @Override
+            public boolean beforeViewChange(ViewChangeListener.ViewChangeEvent event) {
+                getMenu().setVisible(isLoggedIn());
+                if (isLoggedIn()) {
+                    if (event.getNewView() instanceof LoginView) {
+                        getNavigator().navigateTo(HomeView.id);
+                        return false;
+                    }
+                    return true;
+                }
+                else {
+                    if (!(event.getNewView() instanceof LoginView)) {
+                        getNavigator().navigateTo(LoginView.id);
+                        return false;
+                    }
+                    return true;
+                }
+            }
+
+            @Override
+            public void afterViewChange(ViewChangeListener.ViewChangeEvent event) {
+                
+            }
+        });
+        
         if (!isLoggedIn()) {
             getMenu().setVisible(false);
             getNavigator().navigateTo(LoginView.id);
