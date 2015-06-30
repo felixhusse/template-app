@@ -50,9 +50,9 @@ public class AppUserService {
         appUserDao.delete(user.getId());
     }
     
-    public String getUserImage(String username) {
+    public String getUserImage(AppUser user) {
         
-        String eMail = appUserDao.findByUserName(username).geteMail();
+        String eMail = user.geteMail();
         if (eMail == null || eMail.isEmpty()) {
             eMail = "someone@somewhere.com";
         }

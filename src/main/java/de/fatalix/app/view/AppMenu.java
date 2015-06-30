@@ -27,6 +27,8 @@ import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import de.fatalix.app.bl.AppUserService;
+import de.fatalix.app.view.login.LoginView;
+import de.fatalix.app.view.profile.ProfileView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -94,7 +96,13 @@ public class AppMenu extends CssLayout{
         settingsItem = settings.addItem("TEST USER",
                 new ThemeResource("img/profile-pic-300px.jpg"),
                 null);
-        settingsItem.addItem("Edit Profile", null);
+        settingsItem.addItem("Edit Profile", new MenuBar.Command() {
+
+            @Override
+            public void menuSelected(MenuBar.MenuItem selectedItem) {
+                UI.getCurrent().getNavigator().navigateTo(ProfileView.id);
+            }
+        });
         settingsItem.addItem("Preferences", null);
         settingsItem.addSeparator();
         settingsItem.addItem("Sign Out", new MenuBar.Command() {
@@ -134,7 +142,7 @@ public class AppMenu extends CssLayout{
     public void loadMenu(Subject subject) {
         items = new CssLayout();
         settingsItem.setText(subject.getPrincipal().toString());
-        settingsItem.setIcon(new ExternalResource(userService.getUserImage(subject.getPrincipal().toString())));
+        settingsItem.setIcon(new ExternalResource(userService.getUserImage(userService.getAppUser(subject.getPrincipal().toString()))));
         items.addComponents(getAsLinkButtons(getAvailableViews(subject)));
         items.setPrimaryStyleName("valo-menuitems");
         addComponent(items);
