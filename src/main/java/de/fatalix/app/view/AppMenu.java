@@ -63,8 +63,8 @@ public class AppMenu extends CssLayout{
     
     @PostConstruct
     private void postInit() {
-        setPrimaryStyleName("valo-menu");
-        addStyleName("valo-menu-part");
+        setPrimaryStyleName(ValoTheme.MENU_ROOT);
+        addStyleName(ValoTheme.MENU_PART);
         addComponent(createHeader());
         final Button showMenu = new Button("Menu", new Button.ClickListener() {
             @Override
@@ -80,11 +80,8 @@ public class AppMenu extends CssLayout{
         showMenu.addStyleName(ValoTheme.BUTTON_SMALL);
         showMenu.addStyleName("valo-menu-toggle");
         showMenu.setIcon(FontAwesome.LIST);
-        addComponent(showMenu);
+        addComponent(showMenu);        
         
-        items = new CssLayout(getAsLinkButtons(getAvailableViews()));
-        items.setPrimaryStyleName("valo-menuitems");
-        addComponent(items);
         addAttachListener(new AttachListener() {
             @Override
             public void attach(AttachEvent event) {
@@ -108,6 +105,12 @@ public class AppMenu extends CssLayout{
         );
     }
     
+    public void loadMenu(Subject subject) {
+        items = new CssLayout(getAsLinkButtons(getAvailableViews(subject)));
+        items.setPrimaryStyleName("valo-menuitems");
+        addComponent(items);
+    }
+    
     private HorizontalLayout createHeader() {
         HorizontalLayout headerContent = new HorizontalLayout(header);
         headerContent.setMargin(false);
@@ -116,11 +119,11 @@ public class AppMenu extends CssLayout{
         return headerContent;
     }
     
-    public List<Bean<?>> getAvailableViews() {
+    public List<Bean<?>> getAvailableViews(Subject subject) {
         Set<Bean<?>> all = beanManager.getBeans(View.class,
                 new AnnotationLiteral<Any>() {
                 });
-        Subject subject = SecurityUtils.getSubject();
+
         final ArrayList<Bean<?>> list = new ArrayList<>();
         for (Bean<?> bean : all) {
 
@@ -172,9 +175,6 @@ public class AppMenu extends CssLayout{
                 }
             }
         });
-        // TODO check if accessible for current user
-
-        
         
         return list;
     }

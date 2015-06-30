@@ -59,10 +59,10 @@ public class App extends UI{
     protected void init(VaadinRequest request) {
         Navigator navigator = new Navigator(this, appLayout.
                 getMainContent()) {
-
                     @Override
                     public void navigateTo(String navigationState) {
                         try {
+                            
                             super.navigateTo(navigationState);
                         } catch (Exception e) {
                             handleNavigationError(navigationState, e);
@@ -127,6 +127,7 @@ public class App extends UI{
 
     public void userLoggedIn(@Observes(notifyObserver = Reception.IF_EXISTS) UserLoggedInEvent event) {
         Notification.show("Welcome back " + event.getUsername());
+        getMenu().loadMenu(SecurityUtils.getSubject());
         getMenu().navigateTo(HomeView.id);
         getMenu().addMenuItem(logout);
         getMenu().setVisible(isLoggedIn());
