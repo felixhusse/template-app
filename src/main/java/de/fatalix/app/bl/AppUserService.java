@@ -60,7 +60,7 @@ public class AppUserService {
         String gravatarImageURL = new Gravatar()
             .setSize(100)
             .setHttps(true)
-            .setRating(Rating.PARENTAL_GUIDANCE_SUGGESTED)
+            .setRating(Rating.GENERAL_AUDIENCE)
             .setStandardDefaultImage(DefaultImage.MONSTER)
             .getUrl(eMail);
         

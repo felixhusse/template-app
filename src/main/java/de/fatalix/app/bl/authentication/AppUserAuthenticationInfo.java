@@ -6,7 +6,6 @@
 package de.fatalix.app.bl.authentication;
 
 import de.fatalix.app.bl.model.AppUser;
-import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.SaltedAuthenticationInfo;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;

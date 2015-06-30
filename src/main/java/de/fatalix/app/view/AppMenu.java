@@ -133,7 +133,6 @@ public class AppMenu extends CssLayout{
     
     public void loadMenu(Subject subject) {
         items = new CssLayout();
-        
         settingsItem.setText(subject.getPrincipal().toString());
         settingsItem.setIcon(new ExternalResource(userService.getUserImage(subject.getPrincipal().toString())));
         items.addComponents(getAsLinkButtons(getAvailableViews(subject)));
