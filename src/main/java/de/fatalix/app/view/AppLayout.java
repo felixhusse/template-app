@@ -8,7 +8,6 @@ package de.fatalix.app.view;
 import com.vaadin.cdi.UIScoped;
 import com.vaadin.server.Responsive;
 import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.HorizontalLayout;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.vaadin.viritin.layouts.MHorizontalLayout;

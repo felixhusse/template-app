@@ -87,7 +87,11 @@
                     </exclusion>
             </exclusions>
         </dependency>
-        
+        <dependency>
+            <groupId>de.bripkens</groupId>
+            <artifactId>gravatar4java</artifactId>
+            <version>1.1</version>
+        </dependency>
     </dependencies>
 
     <build>

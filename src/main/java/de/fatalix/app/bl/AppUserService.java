@@ -5,6 +5,9 @@
  */
 package de.fatalix.app.bl;
 
+import de.bripkens.gravatar.DefaultImage;
+import de.bripkens.gravatar.Gravatar;
+import de.bripkens.gravatar.Rating;
 import de.fatalix.app.bl.dao.AppUserDAO;
 import de.fatalix.app.bl.model.AppUser;
 import java.util.List;
@@ -46,5 +49,22 @@ public class AppUserService {
     public void deleteUser(AppUser user) {
         appUserDao.delete(user.getId());
     }
-
+    
+    public String getUserImage(String username) {
+        
+        String eMail = appUserDao.findByUserName(username).geteMail();
+        if (eMail == null || eMail.isEmpty()) {
+            eMail = "someone@somewhere.com";
+        }
+        
+        String gravatarImageURL = new Gravatar()
+            .setSize(100)
+            .setHttps(true)
+            .setRating(Rating.PARENTAL_GUIDANCE_SUGGESTED)
+            .setStandardDefaultImage(DefaultImage.MONSTER)
+            .getUrl(eMail);
+        
+        return gravatarImageURL;
+    }
+    
 }

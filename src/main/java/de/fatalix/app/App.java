@@ -41,19 +41,6 @@ public class App extends UI{
     protected CDIViewProvider viewProvider;
     @Inject
     protected AppLayout appLayout;
-    
-    private Button logout;
-    
-    private final Button.ClickListener logoutClickListener = new Button.ClickListener() {
-        private static final long serialVersionUID = -1545988729141348821L;
-
-        @Override
-        public void buttonClick(Button.ClickEvent event) {
-            SecurityUtils.getSubject().logout();
-            VaadinSession.getCurrent().close();
-            Page.getCurrent().setLocation("");
-        }
-    };
 
     @Override
     protected void init(VaadinRequest request) {
@@ -72,9 +59,7 @@ public class App extends UI{
                 };
         navigator.addProvider(viewProvider);
         setContent(appLayout);
-        logout = new Button("Logout", logoutClickListener);
-        logout.setIcon(FontAwesome.SIGN_OUT);
-        logout.addStyleName("user-menu");
+
         getNavigator().addViewChangeListener(new ViewChangeListener() {
 
             @Override
@@ -107,7 +92,6 @@ public class App extends UI{
             getNavigator().navigateTo(LoginView.id);
         } else {
             getMenu().setVisible(isLoggedIn());
-            getMenu().addMenuItem(logout);
             if(getNavigator().getState().isEmpty()) {
                 getNavigator().navigateTo(HomeView.id);
             }
@@ -129,7 +113,6 @@ public class App extends UI{
         Notification.show("Welcome back " + event.getUsername());
         getMenu().loadMenu(SecurityUtils.getSubject());
         getMenu().navigateTo(HomeView.id);
-        getMenu().addMenuItem(logout);
         getMenu().setVisible(isLoggedIn());
     }
     

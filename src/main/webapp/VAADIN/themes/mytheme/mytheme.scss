@@ -279,13 +279,13 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
   }
 
   // Move logout button to the bottom of the menu on large screens
-  .v-ui[width-range~="801px-"] .valo-menu-part {
-    .user-menu {
-      position: fixed;
-      bottom: 0;
-      margin-bottom: 0;
-    }
-  }
+  //.v-ui[width-range~="801px-"] .valo-menu-part {
+  //  .user-menu {
+  //    position: fixed;
+  //    bottom: 0;
+  //    margin-bottom: 0;
+   // }
+  //}
 
   // Editor should take whole browser width when we are under 550px in width.
   .v-ui[width-range~="0-550px"] {
@@ -332,9 +332,9 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
 
   // Override valo default narrow menu button on small screens to have the full logout text visible
   .v-ui[width-range~="0-500px"] {
-    .valo-menu .v-menubar-user-menu .v-menubar-menuitem-caption {
-      width: auto;
-    }
+    //.valo-menu .v-menubar-user-menu .v-menubar-menuitem-caption {
+    //  width: auto;
+    //}
   }
 
   // Hide spinner buttons from number input

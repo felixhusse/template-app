@@ -12,15 +12,21 @@ import com.vaadin.cdi.internal.Conventions;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
 import com.vaadin.server.Resource;
+import com.vaadin.server.ThemeResource;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
+import de.fatalix.app.bl.AppUserService;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -51,10 +57,11 @@ import org.vaadin.viritin.label.Header;
 public class AppMenu extends CssLayout{
     
     @Inject private BeanManager beanManager;
-    
+    @Inject private AppUserService userService;
     private CssLayout items;
     private final HashMap<String, Button> nameToButton = new HashMap<>();
-
+    
+    private MenuBar.MenuItem settingsItem;
     private Button selectedButton;
     private Button active;
     private Component secondaryComponent;
@@ -82,6 +89,25 @@ public class AppMenu extends CssLayout{
         showMenu.setIcon(FontAwesome.LIST);
         addComponent(showMenu);        
         
+        MenuBar settings = new MenuBar();
+        settings.addStyleName("user-menu");
+        settingsItem = settings.addItem("TEST USER",
+                new ThemeResource("img/profile-pic-300px.jpg"),
+                null);
+        settingsItem.addItem("Edit Profile", null);
+        settingsItem.addItem("Preferences", null);
+        settingsItem.addSeparator();
+        settingsItem.addItem("Sign Out", new MenuBar.Command() {
+
+            @Override
+            public void menuSelected(MenuBar.MenuItem selectedItem) {
+                SecurityUtils.getSubject().logout();
+                VaadinSession.getCurrent().close();
+                Page.getCurrent().setLocation("");
+            }
+        });
+        addComponent(settings);
+        
         addAttachListener(new AttachListener() {
             @Override
             public void attach(AttachEvent event) {
@@ -106,7 +132,11 @@ public class AppMenu extends CssLayout{
     }
     
     public void loadMenu(Subject subject) {
-        items = new CssLayout(getAsLinkButtons(getAvailableViews(subject)));
+        items = new CssLayout();
+        
+        settingsItem.setText(subject.getPrincipal().toString());
+        settingsItem.setIcon(new ExternalResource(userService.getUserImage(subject.getPrincipal().toString())));
+        items.addComponents(getAsLinkButtons(getAvailableViews(subject)));
         items.setPrimaryStyleName("valo-menuitems");
         addComponent(items);
     }
