@@ -30,7 +30,7 @@ import org.apache.shiro.subject.Subject;
  * @author Fatalix
  */
 @CDIUI("")
-@Theme("mytheme")
+@Theme("gray-theme")
 public class App extends UI{
     
     @Inject
