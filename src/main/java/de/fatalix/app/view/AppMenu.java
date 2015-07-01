@@ -27,7 +27,6 @@ import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 import de.fatalix.app.bl.AppUserService;
-import de.fatalix.app.view.login.LoginView;
 import de.fatalix.app.view.profile.ProfileView;
 import java.util.ArrayList;
 import java.util.Collections;
