@@ -18,11 +18,13 @@ import com.vaadin.server.Page;
 import com.vaadin.server.Resource;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.server.VaadinSession;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
@@ -66,14 +68,14 @@ public class AppMenu extends CssLayout{
     private Button selectedButton;
     private Button active;
     private Component secondaryComponent;
-    
-    private final Header header = new Header(null).setHeaderLevel(3);
+    private final Label header = new Label("", ContentMode.HTML);
     
     @PostConstruct
     private void postInit() {
         setPrimaryStyleName(ValoTheme.MENU_ROOT);
         addStyleName(ValoTheme.MENU_PART);
         addComponent(createHeader());
+        
         final Button showMenu = new Button("Menu", new Button.ClickListener() {
             @Override
             public void buttonClick(final Button.ClickEvent event) {
@@ -119,7 +121,7 @@ public class AppMenu extends CssLayout{
             @Override
             public void attach(AttachEvent event) {
                 getUI().addStyleName("valo-menu-responsive");
-                if (getMenuTitle() == null) {
+                if (getMenuTitle() == null || getMenuTitle().isEmpty()) {
                     setMenuTitle(detectMenuTitle());
                 }
                 Navigator navigator = UI.getCurrent().getNavigator();
@@ -140,6 +142,7 @@ public class AppMenu extends CssLayout{
     
     public void loadMenu(Subject subject) {
         items = new CssLayout();
+        
         settingsItem.setText(subject.getPrincipal().toString());
         settingsItem.setIcon(new ExternalResource(userService.getUserImage(userService.getAppUser(subject.getPrincipal().toString()))));
         items.addComponents(getAsLinkButtons(getAvailableViews(subject)));
@@ -309,15 +312,18 @@ public class AppMenu extends CssLayout{
     }
 
     public String getMenuTitle() {
-        return header.getText();
+        return header.getValue();
     }
 
     public void setMenuTitle(String menuTitle) {
-        this.header.setText(menuTitle);
+        
+        this.header.setValue(menuTitle);
     }
 
     private String detectMenuTitle() {
-        // try to dig a sane default from Title annotation in UI or class name
+        
+        return "<h3>some <strong>Vaadin App</strong></h3>";
+        /* try to dig a sane default from Title annotation in UI or class name
         final Class<? extends UI> uiClass = getUI().getClass();
         Title title = uiClass.getAnnotation(Title.class);
         if (title != null) {
@@ -326,6 +332,7 @@ public class AppMenu extends CssLayout{
             String simpleName = uiClass.getSimpleName();
             return simpleName.replaceAll("UI", "");
         }
+        */
     }
 
     public View navigateTo(final Class<?> viewClass) {

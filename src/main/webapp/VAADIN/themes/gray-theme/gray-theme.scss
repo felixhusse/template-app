@@ -44,7 +44,7 @@ $login-info-width: 300px !default;
 
 $login-background-color: $editor-background-color !default;
 // Get more background images from ex (remember to optimize the filesize)
-$login-background-image: "img/archetype-login-bg.jpg" !default;
+//$login-background-image: "img/archetype-login-bg.jpg" !default;
 
 $editor-shadow: 0 0 10px 10px rgba(0,0,0,.1) !default;
 $editor-embed-background-color: darken($editor-background-color, 5%) !default;
@@ -76,7 +76,7 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
 
   // login screen - for small screens, see below
   .login-screen {
-    background: $editor-background-color;
+    background: $v-app-background-color;
 
     @if $login-background-image {
       background-image: url(#{$login-background-image});
@@ -102,7 +102,7 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
       width: $login-info-width;
       height: 100%;
       background: $v-selection-color; // For IE8
-      background-color: rgba(81, 35, 0, $login-info-opacity);
+      background-color: $editor-background-color;
       padding: $v-layout-margin;
       color: valo-font-color($v-selection-color, 0.9);
       @include animation(valo-animate-in-fade 1s 1s backwards);

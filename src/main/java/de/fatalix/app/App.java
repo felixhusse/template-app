@@ -14,6 +14,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.themes.ValoTheme;
 import de.fatalix.app.view.AppLayout;
 import de.fatalix.app.view.AppMenu;
 import de.fatalix.app.view.home.HomeView;
@@ -40,6 +41,7 @@ public class App extends UI{
 
     @Override
     protected void init(VaadinRequest request) {
+
         Navigator navigator = new Navigator(this, appLayout.
                 getMainContent()) {
                     @Override
