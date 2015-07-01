@@ -11,8 +11,6 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
@@ -38,9 +36,7 @@ public class ProfileView extends AbstractView implements View{
     @Inject private ProfilePresenter presenter;
     
     public static final String id = "profile";
-    
 
-    
     private Image profileImage;
     private TextField usernameField;
     private PasswordField passwordField;

@@ -168,7 +168,7 @@ public class AppMenu extends CssLayout{
 
             ViewMenuItem annotation = beanClass.
                     getAnnotation(ViewMenuItem.class);
-            if (annotation == null || annotation.enabled()) {
+            if (annotation != null) {
                
                 RolesAllowed rolesAnnotation = beanClass.getAnnotation(RolesAllowed.class);
                 if (rolesAnnotation != null) {
